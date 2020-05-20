@@ -26,26 +26,26 @@ import java.net.URLEncoder;
 
 public class AddActivity extends AppCompatActivity {
 
-    EditText edt_recordDate_add,edt_recordAmount_add,edt_recordExplain_add;
+    EditText edt_recordDate_add, edt_recordAmount_add, edt_recordExplain_add;
     TextView tv_ownerId_add;
     Spinner spinner3;
-    String[] record_types={"收入","支出"};
+    String[] record_types = {"收入", "支出"};
 
-    String httpUrl_add="http://10.0.2.2:8080/PF2/add";
+    String httpUrl_add = "http://10.0.2.2:8080/PF2/add";
     String msg = "";
-    Handler handler=new Handler();
+    Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
-        Intent intent1=getIntent();
+        Intent intent1 = getIntent();
 
         edt_recordDate_add = findViewById(R.id.edt_recordDate_add);
         edt_recordAmount_add = findViewById(R.id.edt_recordAmount_add);
         edt_recordExplain_add = findViewById(R.id.edt_recordExplain_add);
-        tv_ownerId_add=findViewById(R.id.tv_ownerId_add);
+        tv_ownerId_add = findViewById(R.id.tv_ownerId_add);
         spinner3 = findViewById(R.id.spinner3);
 
         tv_ownerId_add.setText(intent1.getStringExtra("ownerId"));
@@ -109,8 +109,8 @@ public class AddActivity extends AppCompatActivity {
                     String recordDate = edt_recordDate_add.getText().toString();
                     String recordType = spinner3.getSelectedItem().toString();
                     String recordAmount = edt_recordAmount_add.getText().toString();
-                    String recordExplain=edt_recordExplain_add.getText().toString();
-                    String recordOwner=tv_ownerId_add.getText().toString();
+                    String recordExplain = edt_recordExplain_add.getText().toString();
+                    String recordOwner = tv_ownerId_add.getText().toString();
                     String params = "recordDate=" + URLEncoder.encode(recordDate, "utf-8");
                     params += "&recordType=" + URLEncoder.encode(recordType, "utf-8");
                     params += "&recordAmount=" + URLEncoder.encode(recordAmount, "utf-8");
@@ -126,21 +126,19 @@ public class AddActivity extends AppCompatActivity {
                         int count = inputStream.read(buffer);
                         String result = new String(buffer, 0, count);
                         Log.i("Test", result);
-                        if (result.equals("新增失败")) {
-                            msg = result;
-                            handler.post(new updateUIThread());
-                            setResult(RESULT_CANCELED);
-                        } else {
-                            msg = result;
-                            handler.post(new updateUIThread());
-                            Intent intent= new Intent(AddActivity.this,ManagerActivity.class);
-                            setResult(RESULT_OK,intent);
-                            finish();
-                        }
+                        handler.post(new updateUIThread());
+                        Intent intent = new Intent(AddActivity.this, ManagerActivity.class);
+                        setResult(RESULT_OK, intent);
+                        finish();
                     }
+
 
                 } catch (IOException e) {
                     e.printStackTrace();
+                    msg = "新增失败";
+                    handler.post(new updateUIThread());
+                    setResult(RESULT_CANCELED);
+                    finish();
                 }
             }
         }

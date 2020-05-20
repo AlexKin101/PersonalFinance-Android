@@ -40,24 +40,24 @@ public class ManagerActivity extends AppCompatActivity {
 
     String httpUrl_ALL = "http://10.0.2.2:8080/PF2/query";
     String httpUrl_TYPE = "http://10.0.2.2:8080/PF2/query";
-    String httpUrl_DATE="http://10.0.2.2:8080/PF2/datequery";
-    String httpUrl_Delete="http://10.0.2.2:8080/PF2/delete";
+    String httpUrl_DATE = "http://10.0.2.2:8080/PF2/datequery";
+    String httpUrl_Delete = "http://10.0.2.2:8080/PF2/delete";
     String msg = "";
-    Handler handler=new Handler();
+    Handler handler = new Handler();
     String query_type = "";
     int[] record_icons = {R.drawable.icon2, R.drawable.icon1};
     String[] quert_types = {"时间段", "类别"};
-    String query_type_in_out="";
-    String date_start="",date_end="";
+    String query_type_in_out = "";
+    String date_start = "", date_end = "";
 
-    TextView recordid,recorddate,recordtype,recordamount,recordExplain;
+    TextView recordid, recorddate, recordtype, recordamount, recordExplain;
 
     Record record = new Record();
 
-    QMUIRoundButton btn_record_query,btn_record_query_in,btn_record_query_out,btn_record_add;
+    QMUIRoundButton btn_record_query, btn_record_query_in, btn_record_query_out, btn_record_add;
     Spinner spinner;
     TextView tv_ownerId;
-    EditText edt_query_start,edt_query_end;
+    EditText edt_query_start, edt_query_end;
     SimpleAdapter simpleAdapter;
     ListView query_list;
     LinearLayout lay_query_type;
@@ -78,8 +78,8 @@ public class ManagerActivity extends AppCompatActivity {
         tv_ownerId.setText(intent.getStringExtra("ownerId"));
         spinner = findViewById(R.id.spinner);
 
-        lay_query_type=findViewById(R.id.layout_query_type);
-        lay_query_date=findViewById(R.id.layout_query_date);
+        lay_query_type = findViewById(R.id.layout_query_type);
+        lay_query_date = findViewById(R.id.layout_query_date);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, quert_types);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -87,19 +87,19 @@ public class ManagerActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                TextView tv=(TextView)view;
+                TextView tv = (TextView) view;
                 tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
 
                 query_type = quert_types[position];
-                if(query_type.equals("类别")){
+                if (query_type.equals("类别")) {
                     lay_query_date.setVisibility(View.INVISIBLE);
                     lay_query_type.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     lay_query_date.setVisibility(View.VISIBLE);
                     lay_query_type.setVisibility(View.INVISIBLE);
                 }
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -107,18 +107,17 @@ public class ManagerActivity extends AppCompatActivity {
         });
 
 
-
-        btn_record_query_in=findViewById(R.id.btn_record_query_in);
-        btn_record_query_out=findViewById(R.id.btn_record_query_out);
+        btn_record_query_in = findViewById(R.id.btn_record_query_in);
+        btn_record_query_out = findViewById(R.id.btn_record_query_out);
 
         edt_query_start = findViewById(R.id.edt_query_start);
-        edt_query_end=findViewById(R.id.edt_query_end);
+        edt_query_end = findViewById(R.id.edt_query_end);
         btn_record_query = findViewById(R.id.btn_record_query);
         btn_record_query.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                date_start=edt_query_start.getText().toString();
-                date_end=edt_query_end.getText().toString();
+                date_start = edt_query_start.getText().toString();
+                date_end = edt_query_end.getText().toString();
                 Thread thread2 = new Thread(new QueryDateThread());
                 thread2.start();
             }
@@ -127,7 +126,7 @@ public class ManagerActivity extends AppCompatActivity {
         btn_record_query_in.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                query_type_in_out="收入";
+                query_type_in_out = "收入";
                 Thread thread1 = new Thread(new QueryTypeThread());
                 thread1.start();
             }
@@ -135,20 +134,19 @@ public class ManagerActivity extends AppCompatActivity {
         btn_record_query_out.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                query_type_in_out="支出";
+                query_type_in_out = "支出";
                 Thread thread1 = new Thread(new QueryTypeThread());
                 thread1.start();
             }
         });
 
-        btn_record_add=findViewById(R.id.btn_record_add);
+        btn_record_add = findViewById(R.id.btn_record_add);
         btn_record_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2=new Intent(ManagerActivity.this,AddActivity.class);
-                intent2.putExtra("ownerId",tv_ownerId.getText().toString());
-                startActivityForResult(intent2,2);
-                finish();
+                Intent intent2 = new Intent(ManagerActivity.this, AddActivity.class);
+                intent2.putExtra("ownerId", tv_ownerId.getText().toString());
+                startActivityForResult(intent2, 2);
             }
         });
     }
@@ -193,10 +191,10 @@ public class ManagerActivity extends AppCompatActivity {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 Map<String, String> map = new HashMap<>();
-                                map.put("recordId",String.valueOf(jsonObject.getInt("recordId")));
+                                map.put("recordId", String.valueOf(jsonObject.getInt("recordId")));
                                 if (jsonObject.getString("recordType").equals("收入")) {
                                     map.put("recordIcon", String.valueOf(record_icons[0]));
-                                }else{
+                                } else {
                                     map.put("recordIcon", String.valueOf(record_icons[1]));
                                 }
                                 map.put("recordDate", (jsonObject.getString("recordDate")));
@@ -211,8 +209,8 @@ public class ManagerActivity extends AppCompatActivity {
                                     getApplicationContext(),
                                     list,
                                     R.layout.listitemlayout_manager,
-                                    new String[]{"recordId","recordIcon", "recordDate", "recordType", "recordAmount", "recordExplain"},
-                                    new int[]{R.id.record_id,R.id.record_icon, R.id.record_date, R.id.record_type, R.id.record_amount, R.id.record_explain}
+                                    new String[]{"recordId", "recordIcon", "recordDate", "recordType", "recordAmount", "recordExplain"},
+                                    new int[]{R.id.record_id, R.id.record_icon, R.id.record_date, R.id.record_type, R.id.record_amount, R.id.record_explain}
                             );
                             query_list.setAdapter(simpleAdapter);
 
@@ -220,23 +218,23 @@ public class ManagerActivity extends AppCompatActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                    ListView tempList=(ListView)parent;
+                                    ListView tempList = (ListView) parent;
                                     View mView = tempList.getChildAt(position - tempList.getFirstVisiblePosition());
 
-                                    recordid=mView.findViewById(R.id.record_id);
-                                    recorddate=mView.findViewById(R.id.record_date);
-                                    recordtype=mView.findViewById(R.id.record_type);
-                                    recordamount=mView.findViewById(R.id.record_amount);
-                                    recordExplain=mView.findViewById(R.id.record_explain);
+                                    recordid = mView.findViewById(R.id.record_id);
+                                    recorddate = mView.findViewById(R.id.record_date);
+                                    recordtype = mView.findViewById(R.id.record_type);
+                                    recordamount = mView.findViewById(R.id.record_amount);
+                                    recordExplain = mView.findViewById(R.id.record_explain);
 
-                                    final ArrayList<String> list1=new ArrayList<>();
+                                    final ArrayList<String> list1 = new ArrayList<>();
                                     list1.add(recordid.getText().toString());
                                     list1.add(recorddate.getText().toString());
                                     list1.add(recordtype.getText().toString());
                                     list1.add(recordamount.getText().toString());
                                     list1.add(recordExplain.getText().toString());
 
-                                    AlertDialog.Builder builder= new AlertDialog.Builder(ManagerActivity.this);
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(ManagerActivity.this);
                                     builder.setMessage("请点击所需要的操作");
                                     builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                         @Override
@@ -246,7 +244,7 @@ public class ManagerActivity extends AppCompatActivity {
                                             builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
                                                 @Override
                                                 public void onClick(DialogInterface dialog, int which) {
-                                                    Thread thread=new Thread(new DeleteThread());
+                                                    Thread thread = new Thread(new DeleteThread());
                                                     thread.start();
                                                 }
                                             });
@@ -263,12 +261,12 @@ public class ManagerActivity extends AppCompatActivity {
                                     builder.setNegativeButton("修改", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Intent intent1=new Intent(getApplicationContext(),UpdateActivity.class);
-                                            intent1.putStringArrayListExtra("list1",list1);
-                                            startActivityForResult(intent1,1);
+                                            Intent intent1 = new Intent(getApplicationContext(), UpdateActivity.class);
+                                            intent1.putStringArrayListExtra("list1", list1);
+                                            startActivityForResult(intent1, 1);
                                         }
                                     });
-                                    AlertDialog b=builder.create();
+                                    AlertDialog b = builder.create();
                                     b.show();
                                 }
                             });
@@ -315,40 +313,38 @@ public class ManagerActivity extends AppCompatActivity {
                         String result = new String(buffer, 0, count);
                         JSONArray jsonArray = new JSONArray(result);
                         Log.i("Test", result);
-                        if (result.equals("查询失败")) {
-                            msg = result;
-                            handler.post(new updateUIThread());
-                        } else {
-                            //Record record=new Record();
-                            ArrayList<Record> list = new ArrayList<Record>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                Record record=new Record();
-                                if (jsonObject.getString("recordType").equals(query_type_in_out)){
-                                    if (jsonObject.getString("recordType").equals("收入")) {
-                                        record.setRecordIcon(record_icons[0]);
-                                    } else {
-                                        record.setRecordIcon(record_icons[1]);
-                                    }
-                                    record.setRecordId(jsonObject.getInt("recordId"));
-                                    record.setRecordDate(jsonObject.getString("recordDate"));
-                                    record.setRecordType(jsonObject.getString("recordType"));
-                                    record.setRecordAmount(jsonObject.getDouble("recordAmount"));
-                                    record.setRecordExplain(jsonObject.getString("recordExplain"));
-                                    list.add(record);
+                        //Record record=new Record();
+                        ArrayList<Record> list = new ArrayList<Record>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Record record = new Record();
+                            if (jsonObject.getString("recordType").equals(query_type_in_out)) {
+                                if (jsonObject.getString("recordType").equals("收入")) {
+                                    record.setRecordIcon(record_icons[0]);
+                                } else {
+                                    record.setRecordIcon(record_icons[1]);
                                 }
+                                record.setRecordId(jsonObject.getInt("recordId"));
+                                record.setRecordDate(jsonObject.getString("recordDate"));
+                                record.setRecordType(jsonObject.getString("recordType"));
+                                record.setRecordAmount(jsonObject.getDouble("recordAmount"));
+                                record.setRecordExplain(jsonObject.getString("recordExplain"));
+                                list.add(record);
                             }
-                            Intent intent=new Intent(getApplicationContext(),QueryActivity.class);
-                            intent.putExtra("ownerId",tv_ownerId.getText().toString());
-                            intent.putExtra("query_info",query_type_in_out);
-                            intent.putParcelableArrayListExtra("list", list);
-                            startActivity(intent);
                         }
+                        Intent intent = new Intent(getApplicationContext(), QueryActivity.class);
+                        intent.putExtra("ownerId", tv_ownerId.getText().toString());
+                        intent.putExtra("query_info", query_type_in_out);
+                        intent.putParcelableArrayListExtra("list", list);
+                        startActivity(intent);
+
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    msg = "查询失败";
+                    handler.post(new updateUIThread());
                 }
             }
         }
@@ -387,37 +383,34 @@ public class ManagerActivity extends AppCompatActivity {
                         String result = new String(buffer, 0, count);
                         JSONArray jsonArray = new JSONArray(result);
                         Log.i("Test", result);
-                        if (result.equals("查询失败")) {
-                            msg = result;
-                            handler.post(new updateUIThread());
-                        } else {
-                            ArrayList<Record> list = new ArrayList<Record>();
-                            for (int i = 0; i < jsonArray.length(); i++) {
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                                Record record=new Record();
-                                if (jsonObject.getString("recordType").equals("收入")) {
-                                    record.setRecordIcon(record_icons[0]);
-                                } else {
-                                    record.setRecordIcon(record_icons[1]);
-                                }
-                                    record.setRecordId(jsonObject.getInt("recordId"));
-                                    record.setRecordDate(jsonObject.getString("recordDate"));
-                                    record.setRecordType(jsonObject.getString("recordType"));
-                                    record.setRecordAmount(jsonObject.getDouble("recordAmount"));
-                                    record.setRecordExplain(jsonObject.getString("recordExplain"));
-                                    list.add(record);
+                        ArrayList<Record> list = new ArrayList<Record>();
+                        for (int i = 0; i < jsonArray.length(); i++) {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            Record record = new Record();
+                            if (jsonObject.getString("recordType").equals("收入")) {
+                                record.setRecordIcon(record_icons[0]);
+                            } else {
+                                record.setRecordIcon(record_icons[1]);
                             }
-                            Intent intent=new Intent(getApplicationContext(),QueryActivity.class);
-                            intent.putExtra("ownerId",tv_ownerId.getText().toString());
-                            intent.putExtra("query_info","时间段");
-                            intent.putParcelableArrayListExtra("list", list);
-                            startActivity(intent);
+                            record.setRecordId(jsonObject.getInt("recordId"));
+                            record.setRecordDate(jsonObject.getString("recordDate"));
+                            record.setRecordType(jsonObject.getString("recordType"));
+                            record.setRecordAmount(jsonObject.getDouble("recordAmount"));
+                            record.setRecordExplain(jsonObject.getString("recordExplain"));
+                            list.add(record);
                         }
+                        Intent intent = new Intent(getApplicationContext(), QueryActivity.class);
+                        intent.putExtra("ownerId", tv_ownerId.getText().toString());
+                        intent.putExtra("query_info", "时间段");
+                        intent.putParcelableArrayListExtra("list", list);
+                        startActivity(intent);
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 } catch (JSONException e) {
                     e.printStackTrace();
+                    msg = "查询失败";
+                    handler.post(new updateUIThread());
                 }
             }
         }
@@ -440,8 +433,8 @@ public class ManagerActivity extends AppCompatActivity {
                     httpURLConnection.setDoInput(true);
                     httpURLConnection.connect();
                     OutputStream outputStream = httpURLConnection.getOutputStream();
-                    String recordId=recordid.getText().toString();
-                    String params="recordId="+ URLEncoder.encode(recordId,"utf-8");
+                    String recordId = recordid.getText().toString();
+                    String params = "recordId=" + URLEncoder.encode(recordId, "utf-8");
                     outputStream.write(params.getBytes());
                     outputStream.flush();
                     outputStream.close();
@@ -468,14 +461,14 @@ public class ManagerActivity extends AppCompatActivity {
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode==1){
-            if(resultCode==RESULT_OK){
-                ArrayList<String> result=data.getStringArrayListExtra("list2");
-                recordid.setText(result.get(0));
-                recorddate.setText(result.get(1));
-                recordtype.setText(result.get(2));
-                recordamount.setText(result.get(3));
-                recordExplain.setText(result.get(4));
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                finish();
+            }
+        }
+        if (requestCode == 2) {
+            if (resultCode == RESULT_OK) {
+                finish();
             }
         }
     }

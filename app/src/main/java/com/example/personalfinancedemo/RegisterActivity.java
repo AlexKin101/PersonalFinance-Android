@@ -117,22 +117,22 @@ public class RegisterActivity extends AppCompatActivity {
                         int count = inputStream.read(buffer);
                         String result = new String(buffer, 0, count);
                         Log.i("Test", result);
-                        if (result.equals("注册成功")) {
-                            Intent intent= new Intent(getApplicationContext(),LoginActivity.class);
-                            intent.putExtra("userId", userId);
-                            startActivity(intent);
-                        } else {
                             msg = result;
                             handler.post(new updateUIThread());
+                            Intent intent= new Intent(getApplicationContext(),LoginActivity.class);
+                            intent.putExtra("userId", userId);
+                            setResult(RESULT_OK,intent);
+                            finish();
                         }
-                    }
-
                 } catch (IOException e) {
                     e.printStackTrace();
+                    msg="注册失败";
+                    handler.post(new updateUIThread());
                 }
             }
         }
     }
+
 
     public class updateUIThread implements Runnable {
         @Override

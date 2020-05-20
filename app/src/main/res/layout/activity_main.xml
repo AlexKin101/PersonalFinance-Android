@@ -98,7 +98,7 @@
                     android:textSize="25dp" />
 
                 <TextView
-                    android:id="@+id/textView7"
+                    android:id="@+id/tv_count_all"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
@@ -115,7 +115,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
-                        android:text="0.0"
                         android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintLeft_toLeftOf="parent"
@@ -126,7 +125,6 @@
                         android:id="@+id/tv_month"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.0"
                         android:visibility="invisible"
                         app:layout_constraintBottom_toBottomOf="@id/tv_tatol"
                         app:layout_constraintLeft_toLeftOf="@id/tv_tatol"
@@ -138,7 +136,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/LinearLayout2"
+                android:id="@+id/LinearLayout_btn_count"
                 android:layout_width="300dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -176,6 +174,33 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+                <Spinner
+                    android:id="@+id/spinner4"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" />
+
+
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+                    android:id="@+id/btn_count_other"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:background="@color/qmui_config_color_gray_5"
+                    android:text="统计其他月收支"
+                    android:textColor="@color/qmui_config_color_black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp">
@@ -189,6 +214,7 @@
                     android:text="管理"
                     android:textColor="@color/qmui_config_color_black" />
             </LinearLayout>
+
 
         </LinearLayout>
 

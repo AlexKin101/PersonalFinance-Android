@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton;
@@ -58,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent1);
+                startActivityForResult(intent1, 1);
             }
         });
     }
@@ -118,6 +119,17 @@ public class LoginActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+            }
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if(resultCode==RESULT_OK){
+                String userId = data.getStringExtra("userId");
+                edt_loginuserid.setText(userId);
             }
         }
     }

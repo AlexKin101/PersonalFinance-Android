@@ -82,15 +82,16 @@
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="24dp"
                         android:layout_weight="0"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
                         android:gravity="center"
-                        android:paddingLeft="30dip"/>
+                        android:paddingLeft="30dip"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent" />
 
                     <LinearLayout
                         android:id="@+id/layout_query_date"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
                         android:layout_weight="0"
                         android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="@id/spinner"
@@ -100,7 +101,7 @@
 
                         <EditText
                             android:id="@+id/edt_query_start"
-                            android:layout_width="100dp"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableBottom="@drawable/line"
@@ -116,7 +117,7 @@
 
                         <EditText
                             android:id="@+id/edt_query_end"
-                            android:layout_width="100dp"
+                            android:layout_width="80dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:drawableBottom="@drawable/line"
