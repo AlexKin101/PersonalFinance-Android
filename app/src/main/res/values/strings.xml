@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PersonalFinanceDemo</string>
+    <string name="title_activity_main2">MainActivity2</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string-array name="query_type">
+        <item>时间段</item>
+        <item>类别</item>
+    </string-array>
+
+</resources>

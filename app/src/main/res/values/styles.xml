@@ -1,0 +1,18 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/qmui_config_color_gray_5</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!--QUMI theme here. -->
+        <item name="qmui_topbar_title_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_height">48dp</item>
+        <item name="qmui_topbar_image_btn_height">48dp</item>
+        <item name="qmui_content_spacing_horizontal">20dp</item>
+        <item name="qmui_content_padding_horizontal">@dimen/qmui_content_spacing_horizontal</item>
+    </style>
+
+</resources>
