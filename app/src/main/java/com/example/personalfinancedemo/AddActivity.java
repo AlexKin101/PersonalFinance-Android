@@ -56,6 +56,7 @@ public class AddActivity extends AppCompatActivity {
         spinner3.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                //spinner居中显示
                 //TextView tv=(TextView)view;
                 //tv.setGravity(android.view.Gravity.CENTER_HORIZONTAL);
             }

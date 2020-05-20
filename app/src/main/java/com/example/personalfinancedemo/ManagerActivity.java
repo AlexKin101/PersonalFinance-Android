@@ -45,7 +45,7 @@ public class ManagerActivity extends AppCompatActivity {
     String msg = "";
     Handler handler=new Handler();
     String query_type = "";
-    int[] record_icons = {R.drawable.icon1, R.drawable.icon2};
+    int[] record_icons = {R.drawable.icon2, R.drawable.icon1};
     String[] quert_types = {"时间段", "类别"};
     String query_type_in_out="";
     String date_start="",date_end="";
@@ -189,7 +189,7 @@ public class ManagerActivity extends AppCompatActivity {
                             handler.post(new updateUIThread());
                         } else {
                             //Record record=new Record();
-                            ArrayList<Map<String, String>> list = new ArrayList<>();
+                            final ArrayList<Map<String, String>> list = new ArrayList<>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 Map<String, String> map = new HashMap<>();
@@ -221,7 +221,7 @@ public class ManagerActivity extends AppCompatActivity {
                                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                                     ListView tempList=(ListView)parent;
-                                    View mView=tempList.getChildAt(position);
+                                    View mView = tempList.getChildAt(position - tempList.getFirstVisiblePosition());
 
                                     recordid=mView.findViewById(R.id.record_id);
                                     recorddate=mView.findViewById(R.id.record_date);
@@ -237,16 +237,29 @@ public class ManagerActivity extends AppCompatActivity {
                                     list1.add(recordExplain.getText().toString());
 
                                     AlertDialog.Builder builder= new AlertDialog.Builder(ManagerActivity.this);
-                                    builder.setIcon(R.drawable.ic_launcher_background);
-                                    builder.setTitle("操作");
                                     builder.setMessage("请点击所需要的操作");
                                     builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {
-                                            Thread thread=new Thread(new DeleteThread());
-                                            thread.start();
+                                            AlertDialog.Builder builder = new AlertDialog.Builder(ManagerActivity.this);
+                                            builder.setMessage("确定删除吗");
+                                            builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    Thread thread=new Thread(new DeleteThread());
+                                                    thread.start();
+                                                }
+                                            });
+                                            builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                }
+                                            });
+                                            AlertDialog ad = builder.create();
+                                            ad.show();
                                         }
                                     });
+
                                     builder.setNegativeButton("修改", new DialogInterface.OnClickListener() {
                                         @Override
                                         public void onClick(DialogInterface dialog, int which) {

@@ -43,9 +43,6 @@ public class LoginActivity extends AppCompatActivity {
         edt_loginuserid = findViewById(R.id.edt_loginuserid);
         edt_loginpwd = findViewById(R.id.edt_loginpwd);
 
-//        if(userId.length()>0){
-//            edt_loginuserid.setText(userId);
-//        }
 
         btn_login = findViewById(R.id.btn_login);
         btn_login.setOnClickListener(new View.OnClickListener() {

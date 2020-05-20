@@ -78,7 +78,7 @@ public class QueryActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final ListView tempList=(ListView)parent;
-                View mView=tempList.getChildAt(position);
+                View mView = tempList.getChildAt(position - tempList.getFirstVisiblePosition());
                 recordid=mView.findViewById(R.id.record_id);
                 recorddate=mView.findViewById(R.id.record_date);
                 recordtype=mView.findViewById(R.id.record_type);
@@ -93,14 +93,26 @@ public class QueryActivity extends AppCompatActivity {
                 list1.add(recordExplain.getText().toString());
 
                 AlertDialog.Builder builder= new AlertDialog.Builder(QueryActivity.this);
-                builder.setIcon(R.drawable.ic_launcher_background);
-                builder.setTitle("操作");
                 builder.setMessage("请点击所需要的操作");
                 builder.setPositiveButton("删除", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Thread thread=new Thread(new DeleteThread());
-                        thread.start();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(QueryActivity.this);
+                        builder.setMessage("确定删除吗");
+                        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Thread thread=new Thread(new QueryActivity.DeleteThread());
+                                thread.start();
+                            }
+                        });
+                        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                            }
+                        });
+                        AlertDialog ad = builder.create();
+                        ad.show();
                     }
                 });
                 builder.setNegativeButton("修改", new DialogInterface.OnClickListener() {
