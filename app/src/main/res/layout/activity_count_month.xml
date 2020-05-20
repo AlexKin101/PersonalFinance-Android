@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CountMonthActivity">
+    <TextView
+        android:id="@+id/tv_ownerId_other_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="130dp"
+        android:text=""
+        app:layout_constraintBottom_toBottomOf="@id/textView"
+        app:layout_constraintLeft_toRightOf="@id/textView" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="5dp"
+        android:text="欢迎您 , "
+        app:layout_constraintBottom_toBottomOf="@id/tv_ownerId_other_count"
+        app:layout_constraintRight_toLeftOf="@id/tv_ownerId_other_count"
+        app:layout_constraintTop_toTopOf="@id/tv_ownerId_other_count" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="32dp"
+        android:text="查询详细页"
+        android:textColor="@color/qmui_config_color_gray_5"
+        android:textSize="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.example.personalfinancedemo.CircleStatisticalView
+        android:id="@+id/csv_other_month"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:markTextColor="@color/colorAccent"
+        app:markTextSize="16sp"
+        tools:layout_editor_absoluteX="411dp" />
+
+    <LinearLayout
+        android:id="@id/LinearLayout2"
+        android:layout_width="370dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/csv_other_month">
+
+        <TextView
+            android:id="@+id/textView16"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:text="支出：" />
+
+        <TextView
+            android:id="@+id/tv_month_count_out"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1" />
+
+        <TextView
+            android:id="@+id/textView18"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:text="总收支：" />
+
+        <TextView
+            android:id="@+id/tv_month_count_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1" />
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:gravity="center"
+            android:text="收入：" />
+
+        <TextView
+            android:id="@+id/tv_month_count_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="1" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="132dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="132dp"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/LinearLayout2">
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="您现在正在统计" />
+
+        <TextView
+            android:id="@+id/tv_count_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="xxx" />
+
+        <TextView
+            android:id="@+id/textView15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:text="的数据" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
